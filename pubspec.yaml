@@ -1,0 +1,47 @@
+name: explod
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  permission_handler: ^8.1.6
+  audio_manager: ^0.8.2
+  provider: ^6.0.1
+  fluttertoast: ^8.0.8
+  google_nav_bar: ^5.0.5
+  flutter_audio_query: ^0.3.5+6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - images/
+
+  fonts:
+    - family: Quicksand
+      fonts:
+        - asset: fonts/Quicksand-Regular.ttf
+        - asset: fonts/Quicksand-Bold.ttf
+          weight: 800
+        - asset: fonts/Quicksand-Light.ttf
+          weight: 200
+
+    - family: Gilroy
+      fonts:
+        - asset: fonts/Gilroy-ExtraBold.otf
+          weight: 800
+        - asset: fonts/Gilroy-Light.otf
+          weight: 200
