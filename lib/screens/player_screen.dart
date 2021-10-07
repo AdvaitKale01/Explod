@@ -28,7 +28,7 @@ class _PlayerScreenState extends State<PlayerScreen>
   ];
   late AnimationController _animationController;
   List<int> duration = [800, 900, 700, 600, 400];
-  bool isPlaying = true;
+  bool isPlaying = false;
   double seekBar = 0.0;
   late double songDuration;
   var audioManagerInstance = AudioManager.instance;
@@ -82,7 +82,7 @@ class _PlayerScreenState extends State<PlayerScreen>
     super.initState();
     playSong(widget.songInfo, widget.songIndex);
     isPlaying = widget.isPlaying;
-
+    print('is playing $isPlaying');
     _animationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 450));
     songDuration = double.parse(widget.songInfo[widget.songIndex].duration);
@@ -134,18 +134,18 @@ class _PlayerScreenState extends State<PlayerScreen>
                 ),
                 IconButton(
                   onPressed: () {
-                    print(isPlaying);
+                    print('is playing $isPlaying');
                     setState(() {
                       isPlaying = !isPlaying;
                       isPlaying
-                          ? _animationController.forward()
-                          : _animationController.reverse();
+                          ? _animationController.reverse()
+                          : _animationController.forward();
 
                       audioManagerInstance.playOrPause();
                     });
                   },
                   icon: AnimatedIcon(
-                    icon: AnimatedIcons.play_pause,
+                    icon: AnimatedIcons.pause_play,
                     progress: _animationController,
                   ),
                   iconSize: 60,
