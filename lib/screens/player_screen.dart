@@ -1,4 +1,5 @@
 import 'package:audio_manager/audio_manager.dart';
+import 'package:explod/theme/app_colors.dart';
 import 'package:explod/theme/app_text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
@@ -29,7 +30,7 @@ class _PlayerScreenState extends State<PlayerScreen>
   late AnimationController _animationController;
   List<int> duration = [800, 900, 700, 600, 400];
   bool isPlaying = false;
-  double seekBar = 0.0;
+  late double seekBar;
   late double songDuration;
   var audioManagerInstance = AudioManager.instance;
 
@@ -64,6 +65,7 @@ class _PlayerScreenState extends State<PlayerScreen>
         case AudioManagerEvents.timeupdate:
           seekBar = audioManagerInstance.position.inMilliseconds /
               audioManagerInstance.duration.inMilliseconds;
+          // seekBar = audioManagerInstance.duration.inMilliseconds.toDouble();
           audioManagerInstance.updateLrc(args["position"].toString());
           setState(() {});
           break;
@@ -91,6 +93,9 @@ class _PlayerScreenState extends State<PlayerScreen>
 
   @override
   Widget build(BuildContext context) {
+    print(
+        'seekbar at $seekBar position ${audioManagerInstance.position} song duration $songDuration');
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,10 +122,35 @@ class _PlayerScreenState extends State<PlayerScreen>
         //Music Controls
         Column(
           children: [
+            // Container(
+            //   width: 32.0,
+            //   margin: EdgeInsets.only(left: 6.0),
+            //   child: Text(
+            //     '${audioManagerInstance.position.inMinutes}:${audioManagerInstance.position.inSeconds}',
+            //     style: AppTextStyle.h7BoldBlackQuicksand,
+            //   ),
+            // ),
             Slider(
-              value: 10.0,
-              max: songDuration,
-              onChanged: null,
+              value: seekBar,
+              min: 0,
+              max: 1,
+              activeColor: AppColors.primary,
+              inactiveColor: AppColors.black.withOpacity(0.3),
+              onChanged: (value) {
+                setState(() {
+                  // audioManagerInstance.seekTo(position)
+                  seekBar = value;
+                });
+              },
+              onChangeEnd: (value) {
+                if (audioManagerInstance.duration != null) {
+                  Duration msec = Duration(
+                      milliseconds:
+                          (audioManagerInstance.duration.inMilliseconds * value)
+                              .round());
+                  audioManagerInstance.seekTo(msec);
+                }
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -140,7 +170,6 @@ class _PlayerScreenState extends State<PlayerScreen>
                       isPlaying
                           ? _animationController.reverse()
                           : _animationController.forward();
-
                       audioManagerInstance.playOrPause();
                     });
                   },
