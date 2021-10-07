@@ -34,14 +34,14 @@ Run with `unsound null safety` as currently the package ```flutter_audio_query``
 
 ## TODO:
 
-* Splash - [x]
-* Login - [ ]
-* Music Player - [ ]
-* Visualizer - [ ]
-* Background Audio Service - [ ]
-* Theme - [x]
-* Provider - [x]
-* Dark Theme Support - [ ]
+- [x] Splash 
+- [x] Login 
+- [x] Music Player 
+- [x] Visualizer 
+- [x] Background Audio Service 
+- [x] Theme 
+- [x] Provider  
+- [x] Dark Theme Support
 
 ### Up-Coming Features:
 
